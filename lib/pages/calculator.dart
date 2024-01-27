@@ -142,8 +142,21 @@ class _CalculatorState extends State<Calculator> {
       } else if (value == "AC") {
         _clearLastEntry();
       } else {
-        currentExpression =
-            (currentExpression == "0") ? value : currentExpression + value;
+        if ((currentExpression.endsWith(divideSign) ||
+                currentExpression.endsWith(multiplySign) ||
+                currentExpression.endsWith(subtractSign) ||
+                currentExpression.endsWith(addSign)) &&
+            (value == divideSign ||
+                value == multiplySign ||
+                value == subtractSign ||
+                value == addSign)) {
+          currentExpression =
+              currentExpression.substring(0, currentExpression.length - 1) +
+                  value;
+        } else {
+          currentExpression =
+              (currentExpression == "0") ? value : currentExpression + value;
+        }
       }
     });
   }
